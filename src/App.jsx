@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { faker } from '@faker-js/faker';
 import './index.css';
+import withToggles from './HOC';
 
 const products = Array.from({ length: 20 }, () => {
   return {
@@ -71,13 +72,15 @@ function List({ title, items, render }) {
   );
 }
 
+const ProductListWithToggles = withToggles(ProductList);
+
 export default function App() {
   return (
     <div>
       <h1>Render Props Demo</h1>
 
       <div className="col-2">
-        <List
+        {/*  <List
           title="Products"
           items={products}
           render={product => <ProductItem key={product.productName} product={product} />}
@@ -89,7 +92,13 @@ export default function App() {
           render={company => (
             <CompanyItem key={company.companyName} company={company} defaultVisibility={false} />
           )}
-        />
+        /> */}
+
+        <div className="col-2">
+          <ProductList title={'Product HOC'} items={products} />
+
+          <ProductListWithToggles title={'Product HOC'} items={products} />
+        </div>
       </div>
     </div>
   );
